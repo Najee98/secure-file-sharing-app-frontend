@@ -1,0 +1,149 @@
+.shares-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  margin-bottom: 30px;
+}
+
+.header h1 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 28px;
+  font-weight: 500;
+  margin: 0 0 8px 0;
+}
+
+.subtitle {
+  color: #666;
+  margin: 0;
+  font-size: 14px;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+}
+
+.empty-icon {
+  font-size: 80px;
+  width: 80px;
+  height: 80px;
+  color: #ccc;
+  margin-bottom: 16px;
+}
+
+.table-container {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.shares-table {
+  width: 100%;
+}
+
+.item-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.file-chip {
+  background-color: #42A5F5;
+  color: white;
+}
+
+.folder-chip {
+  background-color: #FFA726;
+  color: white;
+}
+
+.link-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.link-text {
+  font-family: monospace;
+  font-size: 12px;
+  color: #666;
+}
+
+.expires-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.expires-cell.expired {
+  color: #f44336;
+}
+
+.expires-cell.expired mat-icon {
+  color: #f44336;
+}
+
+/* Mobile Card View (hidden on desktop) */
+.mobile-cards {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .table-container {
+    display: none;
+  }
+
+  .mobile-cards {
+    display: block;
+  }
+
+  .share-card {
+    margin-bottom: 16px;
+  }
+
+  .card-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0;
+    font-size: 14px;
+  }
+
+  .card-row.expired {
+    color: #f44336;
+  }
+
+  .card-row mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Table Styling */
+th.mat-header-cell {
+  font-weight: 600;
+  color: #333;
+}
+
+td.mat-cell {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+tr.mat-row:hover {
+  background-color: #f9f9f9;
+}
