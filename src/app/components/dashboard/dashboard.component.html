@@ -1,126 +1,132 @@
 <app-navbar></app-navbar>
 
 <div class="dashboard-container">
-  <!-- Breadcrumb Navigation -->
-  <div class="breadcrumb-bar">
-    <mat-chip-listbox class="breadcrumb-list">
-      <mat-chip *ngFor="let crumb of breadcrumbs; let isLast = last" 
-                (click)="navigateToBreadcrumb(crumb)"
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb-bar">
+        <mat-chip-listbox class="breadcrumb-list">
+            <mat-chip *ngFor="let crumb of breadcrumbs; let isLast = last" (click)="navigateToBreadcrumb(crumb)"
                 [class.active]="isLast">
-        <mat-icon *ngIf="crumb.id === null">home</mat-icon>
-        {{ crumb.name }}
-        <mat-icon *ngIf="!isLast">chevron_right</mat-icon>
-      </mat-chip>
-    </mat-chip-listbox>
-  </div>
-
-  <!-- Action Buttons -->
-  <div class="action-bar">
-    <button mat-raised-button color="primary" (click)="openUploadDialog()">
-      <mat-icon>cloud_upload</mat-icon>
-      Upload File
-    </button>
-    <button mat-raised-button color="accent" (click)="openCreateFolderDialog()">
-      <mat-icon>create_new_folder</mat-icon>
-      New Folder
-    </button>
-  </div>
-
-  <!-- Loading Spinner -->
-  <div *ngIf="isLoading" class="loading-container">
-    <mat-spinner></mat-spinner>
-  </div>
-
-  <!-- Content -->
-  <div *ngIf="!isLoading" class="content-container">
-    
-    <!-- Empty State -->
-    <div *ngIf="folders.length === 0 && files.length === 0" class="empty-state">
-      <mat-icon class="empty-icon">folder_open</mat-icon>
-      <h2>No files or folders</h2>
-      <p>Upload a file or create a folder to get started</p>
+                <mat-icon *ngIf="crumb.id === null">home</mat-icon>
+                {{ crumb.name }}
+                <mat-icon *ngIf="!isLast">chevron_right</mat-icon>
+            </mat-chip>
+        </mat-chip-listbox>
     </div>
 
-    <!-- Folders Section -->
-    <div *ngIf="folders.length > 0" class="folders-section">
-      <h3 class="section-title">
-        <mat-icon>folder</mat-icon>
-        Folders
-      </h3>
-      <div class="items-grid">
-        <mat-card *ngFor="let folder of folders" class="item-card folder-card">
-          <mat-card-content>
-            <div class="item-icon" (click)="loadFolderContent(folder.id, folder.name)">
-              <mat-icon class="folder-icon">folder</mat-icon>
-            </div>
-            <div class="item-info" (click)="loadFolderContent(folder.id, folder.name)">
-              <h4 class="item-name">{{ folder.name }}</h4>
-              <p class="item-meta">Created: {{ folder.createdAt | date:'short' }}</p>
-            </div>
-          </mat-card-content>
-          <mat-card-actions>
-            <button mat-icon-button [matMenuTriggerFor]="folderMenu" (click)="$event.stopPropagation()">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #folderMenu="matMenu">
-              <button mat-menu-item (click)="loadFolderContent(folder.id, folder.name)">
-                <mat-icon>folder_open</mat-icon>
-                <span>Open</span>
-              </button>
-              <button mat-menu-item (click)="shareFolder(folder)">
-                <mat-icon>share</mat-icon>
-                <span>Share</span>
-              </button>
-              <button mat-menu-item (click)="deleteFolder(folder)" class="delete-action">
-                <mat-icon color="warn">delete</mat-icon>
-                <span>Delete</span>
-              </button>
-            </mat-menu>
-          </mat-card-actions>
-        </mat-card>
-      </div>
+    <!-- Action Buttons -->
+    <div class="action-bar">
+        <button mat-raised-button color="primary" (click)="openUploadDialog()">
+            <mat-icon>cloud_upload</mat-icon>
+            Upload File
+        </button>
+        <button mat-raised-button color="accent" (click)="openCreateFolderDialog()">
+            <mat-icon>create_new_folder</mat-icon>
+            New Folder
+        </button>
     </div>
 
-    <!-- Files Section -->
-    <div *ngIf="files.length > 0" class="files-section">
-      <h3 class="section-title">
-        <mat-icon>insert_drive_file</mat-icon>
-        Files
-      </h3>
-      <div class="items-grid">
-        <mat-card *ngFor="let file of files" class="item-card file-card">
-          <mat-card-content>
-            <div class="item-icon">
-              <mat-icon class="file-icon">{{ getFileIcon(file.mimeType) }}</mat-icon>
-            </div>
-            <div class="item-info">
-              <h4 class="item-name" [matTooltip]="file.displayName">{{ file.displayName }}</h4>
-              <p class="item-meta">
-                {{ formatFileSize(file.size) }} • {{ file.createdAt | date:'short' }}
-              </p>
-            </div>
-          </mat-card-content>
-          <mat-card-actions>
-            <button mat-icon-button [matMenuTriggerFor]="fileMenu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #fileMenu="matMenu">
-              <button mat-menu-item (click)="downloadFile(file)">
-                <mat-icon>download</mat-icon>
-                <span>Download</span>
-              </button>
-              <button mat-menu-item (click)="shareFile(file)">
-                <mat-icon>share</mat-icon>
-                <span>Share</span>
-              </button>
-              <button mat-menu-item (click)="deleteFile(file)" class="delete-action">
-                <mat-icon color="warn">delete</mat-icon>
-                <span>Delete</span>
-              </button>
-            </mat-menu>
-          </mat-card-actions>
-        </mat-card>
-      </div>
+    <!-- Loading Spinner -->
+    <div *ngIf="isLoading" class="loading-container">
+        <mat-spinner></mat-spinner>
     </div>
-  </div>
+
+    <!-- Content -->
+    <div *ngIf="!isLoading" class="content-container">
+
+        <!-- Empty State -->
+        <div *ngIf="folders.length === 0 && files.length === 0" class="empty-state">
+            <mat-icon class="empty-icon">folder_open</mat-icon>
+            <h2>No files or folders</h2>
+            <p>Upload a file or create a folder to get started</p>
+        </div>
+
+        <!-- Folders Section -->
+        <div *ngIf="folders.length > 0" class="folders-section">
+            <h3 class="section-title">
+                <mat-icon>folder</mat-icon>
+                Folders
+            </h3>
+            <div class="items-grid">
+                <mat-card *ngFor="let folder of folders" class="item-card folder-card">
+                    <mat-card-content>
+                        <div class="item-icon" (click)="loadFolderContent(folder.id, folder.name)">
+                            <mat-icon class="folder-icon">folder</mat-icon>
+                        </div>
+                        <div class="item-info" (click)="loadFolderContent(folder.id, folder.name)">
+                            <h4 class="item-name">{{ folder.name }}</h4>
+                            <p class="item-meta">Created: {{ folder.createdAt | date:'short' }}</p>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-icon-button [matMenuTriggerFor]="folderMenu" (click)="$event.stopPropagation()">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #folderMenu="matMenu">
+                            <button mat-menu-item (click)="loadFolderContent(folder.id, folder.name)">
+                                <mat-icon>folder_open</mat-icon>
+                                <span>Open</span>
+                            </button>
+                            <button mat-menu-item (click)="shareFolder(folder)">
+                                <mat-icon>share</mat-icon>
+                                <span>Share</span>
+                            </button>
+                            <button mat-menu-item (click)="deleteFolder(folder)" class="delete-action">
+                                <mat-icon color="warn">delete</mat-icon>
+                                <span>Delete</span>
+                            </button>
+                        </mat-menu>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </div>
+
+        <!-- Files Section -->
+        <div *ngIf="files.length > 0" class="files-section">
+            <h3 class="section-title">
+                <mat-icon>insert_drive_file</mat-icon>
+                Files
+            </h3>
+            <div class="items-grid">
+                <mat-card *ngFor="let file of files" class="item-card file-card">
+                    <mat-card-content>
+                        <div class="item-icon">
+                            <mat-icon class="file-icon">{{ getFileIcon(file.mimeType) }}</mat-icon>
+                        </div>
+                        <div class="item-info">
+                            <h4 class="item-name" [matTooltip]="file.displayName">{{ file.displayName }}</h4>
+                            <p class="item-meta">
+                                {{ formatFileSize(file.size) }} • {{ file.createdAt | date:'short' }}
+                            </p>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-icon-button [matMenuTriggerFor]="fileMenu">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+
+                        <mat-menu #fileMenu="matMenu">
+                            <button mat-menu-item (click)="downloadFile(file)">
+
+                                <button mat-menu-item (click)="previewFile(file)">
+                                    <mat-icon>visibility</mat-icon>
+                                    <span>Preview</span>
+                                </button>
+
+                                <mat-icon>download</mat-icon>
+                                <span>Download</span>
+                            </button>
+                            <button mat-menu-item (click)="shareFile(file)">
+                                <mat-icon>share</mat-icon>
+                                <span>Share</span>
+                            </button>
+                            <button mat-menu-item (click)="deleteFile(file)" class="delete-action">
+                                <mat-icon color="warn">delete</mat-icon>
+                                <span>Delete</span>
+                            </button>
+                        </mat-menu>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </div>
+    </div>
 </div>

@@ -1,0 +1,58 @@
+<div class="public-preview-container">
+  <!-- Header -->
+  <div class="preview-header">
+    <div class="branding">
+      <mat-icon>folder_shared</mat-icon>
+      <h1>Secure File Sharing</h1>
+    </div>
+    <button mat-raised-button color="primary" (click)="download()" *ngIf="shareInfo">
+      <mat-icon>download</mat-icon>
+      Download
+    </button>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="isLoading" class="loading-state">
+    <mat-spinner></mat-spinner>
+    <p>Loading...</p>
+  </div>
+
+  <!-- File Info Card -->
+  <div *ngIf="!isLoading && shareInfo" class="file-info-card">
+    <mat-icon class="file-icon">{{ shareInfo.itemType === 'folder' ? 'folder' : 'insert_drive_file' }}</mat-icon>
+    <h2>{{ shareInfo.itemName }}</h2>
+    <p class="expires-info">
+      <mat-icon>schedule</mat-icon>
+      Expires: {{ shareInfo.expiresAt | date:'medium' }}
+    </p>
+  </div>
+
+  <!-- Preview Content -->
+  <div *ngIf="!isLoading && previewType !== 'folder' && previewType !== 'unsupported'" class="preview-area">
+    <!-- Image -->
+    <img *ngIf="previewType === 'image'" [src]="previewUrl" [alt]="shareInfo?.itemName">
+    
+    <!-- PDF -->
+    <iframe *ngIf="previewType === 'pdf'" [src]="previewUrl" frameborder="0"></iframe>
+    
+    <!-- Video -->
+    <video *ngIf="previewType === 'video'" controls [src]="previewUrl"></video>
+    
+    <!-- Audio -->
+    <audio *ngIf="previewType === 'audio'" controls [src]="previewUrl"></audio>
+  </div>
+
+  <!-- Folder Message -->
+  <div *ngIf="!isLoading && previewType === 'folder'" class="message-state">
+    <mat-icon>folder</mat-icon>
+    <h3>This is a folder</h3>
+    <p>Click download to get all files as a ZIP archive</p>
+  </div>
+
+  <!-- Unsupported -->
+  <div *ngIf="!isLoading && previewType === 'unsupported'" class="message-state">
+    <mat-icon>visibility_off</mat-icon>
+    <h3>Preview not available</h3>
+    <p>Click download to view this file</p>
+  </div>
+</div>

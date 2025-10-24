@@ -1,0 +1,54 @@
+<div class="preview-header">
+  <div class="file-info">
+    <h2>{{ data.fileName }}</h2>
+    <p>{{ formatFileSize(data.fileSize) }} • {{ data.mimeType }}</p>
+  </div>
+  <button mat-icon-button (click)="close()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<mat-dialog-content class="preview-content">
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-state">
+    <mat-spinner></mat-spinner>
+    <p>Loading preview...</p>
+  </div>
+
+  <!-- Image Preview -->
+  <div *ngIf="!isLoading && previewType === 'image'" class="image-preview">
+    <img [src]="previewUrl" [alt]="data.fileName">
+  </div>
+
+  <!-- PDF Preview -->
+  <div *ngIf="!isLoading && previewType === 'pdf'" class="pdf-preview">
+    <iframe [src]="previewUrl" frameborder="0"></iframe>
+  </div>
+
+  <!-- Video Preview -->
+  <div *ngIf="!isLoading && previewType === 'video'" class="video-preview">
+    <video controls [src]="previewUrl"></video>
+  </div>
+
+  <!-- Audio Preview -->
+  <div *ngIf="!isLoading && previewType === 'audio'" class="audio-preview">
+    <audio controls [src]="previewUrl"></audio>
+  </div>
+
+  <!-- Text Preview -->
+  <div *ngIf="!isLoading && previewType === 'text'" class="text-preview">
+    <pre>{{ textContent }}</pre>
+  </div>
+
+  <!-- Unsupported File Type -->
+  <div *ngIf="!isLoading && previewType === 'unsupported'" class="unsupported-preview">
+    <mat-icon class="unsupported-icon">visibility_off</mat-icon>
+    <h3>Preview not available</h3>
+    <p>This file type cannot be previewed in the browser.</p>
+    <p class="file-type">{{ data.mimeType }}</p>
+    <button mat-raised-button color="primary" (click)="close()">
+      <mat-icon>download</mat-icon>
+      Download to view
+    </button>
+  </div>
+</mat-dialog-content>

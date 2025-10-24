@@ -13,6 +13,7 @@ import { FileUploadComponent } from '../file-browser/file-upload/file-upload.com
 import { FolderCreateComponent } from '../file-browser/folder-create/folder-create.component';
 import { ShareDialogComponent } from '../sharing/share-dialog/share-dialog.component';
 import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.component';
+import { FilePreviewComponent } from '../file-browser/file-preview/file-preview.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -38,7 +39,7 @@ export class DashboardComponent implements OnInit {
     private sharedLinkService: SharedLinkService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadRootContent();
@@ -230,5 +231,19 @@ export class DashboardComponent implements OnInit {
     if (mimeType.includes('presentation') || mimeType.includes('powerpoint')) return 'slideshow';
     if (mimeType.includes('zip') || mimeType.includes('rar')) return 'folder_zip';
     return 'insert_drive_file';
+  }
+
+  previewFile(file: FileModel): void {
+    this.dialog.open(FilePreviewComponent, {
+      width: '90vw',
+      maxWidth: '1200px',
+      height: '90vh',
+      data: {
+        fileId: file.id,
+        fileName: file.displayName,
+        mimeType: file.mimeType,
+        fileSize: file.size
+      }
+    });
   }
 }
