@@ -1,0 +1,88 @@
+.verify-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+}
+
+.verify-card {
+  max-width: 450px;
+  width: 100%;
+  padding: 20px;
+}
+
+.verify-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.title-icon {
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+.verify-subtitle {
+  text-align: center;
+  color: #666;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.testing-otp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  margin-bottom: 20px;
+  background-color: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 4px;
+  color: #856404;
+}
+
+.testing-otp mat-icon {
+  color: #ffc107;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.submit-btn {
+  margin-top: 20px;
+  height: 48px;
+  font-size: 16px;
+  position: relative;
+}
+
+.button-spinner {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.actions button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+mat-form-field {
+  margin-bottom: 10px;
+}

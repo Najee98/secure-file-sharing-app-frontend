@@ -1,1 +1,66 @@
-<p>verify-otp works!</p>
+<div class="verify-container">
+  <mat-card class="verify-card">
+    <mat-card-header>
+      <mat-card-title class="verify-title">
+        <mat-icon class="title-icon">verified_user</mat-icon>
+        Enter Verification Code
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p class="verify-subtitle">
+        We've sent a 6-digit code to<br>
+        <strong>{{ phoneNumber }}</strong>
+      </p>
+
+      <!-- Show OTP for testing (remove in production) -->
+      <div *ngIf="otpForTesting" class="testing-otp">
+        <mat-icon>info</mat-icon>
+        <span>Test OTP: <strong>{{ otpForTesting }}</strong></span>
+      </div>
+
+      <form [formGroup]="otpForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>OTP Code</mat-label>
+          <input 
+            matInput 
+            type="text" 
+            formControlName="otp"
+            placeholder="123456"
+            maxlength="6"
+            [disabled]="isLoading"
+          >
+          <mat-icon matPrefix>pin</mat-icon>
+          <mat-error *ngIf="otp?.hasError('required')">
+            OTP is required
+          </mat-error>
+          <mat-error *ngIf="otp?.hasError('pattern')">
+            OTP must be 6 digits
+          </mat-error>
+        </mat-form-field>
+
+        <button 
+          mat-raised-button 
+          color="primary" 
+          type="submit" 
+          class="full-width submit-btn"
+          [disabled]="isLoading"
+        >
+          <mat-spinner *ngIf="isLoading" diameter="20" class="button-spinner"></mat-spinner>
+          <span *ngIf="!isLoading">Verify & Login</span>
+        </button>
+      </form>
+
+      <div class="actions">
+        <button mat-button color="accent" (click)="resendOTP()" [disabled]="isLoading">
+          <mat-icon>refresh</mat-icon>
+          Resend Code
+        </button>
+        <button mat-button (click)="goBack()" [disabled]="isLoading">
+          <mat-icon>arrow_back</mat-icon>
+          Back to Login
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
