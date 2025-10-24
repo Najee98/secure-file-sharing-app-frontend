@@ -1,1 +1,64 @@
-<p>share-dialog works!</p>
+<h2 mat-dialog-title>
+  <mat-icon>share</mat-icon>
+  Share {{ data.itemType === 'file' ? 'File' : 'Folder' }}
+</h2>
+
+<mat-dialog-content>
+  <div *ngIf="!shareResult">
+    <p class="item-name">{{ data.itemName }}</p>
+    
+    <form [formGroup]="shareForm">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Recipient Phone (Optional)</mat-label>
+        <input matInput formControlName="recipientPhone" 
+               placeholder="+1234567890" 
+               [disabled]="isSharing">
+        <mat-icon matPrefix>phone</mat-icon>
+        <mat-hint>SMS will be sent if phone number is provided</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Message (Optional)</mat-label>
+        <textarea matInput formControlName="message" 
+                  placeholder="Check out this file!" 
+                  rows="3"
+                  [disabled]="isSharing"></textarea>
+        <mat-icon matPrefix>message</mat-icon>
+      </mat-form-field>
+    </form>
+  </div>
+
+  <div *ngIf="shareResult" class="share-result">
+    <mat-icon class="success-icon">check_circle</mat-icon>
+    <h3>Share Link Created!</h3>
+    
+    <mat-form-field appearance="outline" class="full-width link-field">
+      <mat-label>Shareable Link</mat-label>
+      <input matInput [value]="shareResult.shareUrl" readonly>
+      <button mat-icon-button matSuffix (click)="copyLink()">
+        <mat-icon>content_copy</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <div class="link-info">
+      <p>
+        <mat-icon>schedule</mat-icon>
+        Expires: {{ shareResult.expiresAt | date:'medium' }}
+      </p>
+      <p *ngIf="shareForm.value.recipientPhone">
+        <mat-icon>sms</mat-icon>
+        SMS sent to {{ shareForm.value.recipientPhone }}
+      </p>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()" *ngIf="shareResult">Close</button>
+  <button mat-button (click)="close()" [disabled]="isSharing" *ngIf="!shareResult">Cancel</button>
+  <button mat-raised-button color="primary" (click)="share()" 
+          [disabled]="isSharing" *ngIf="!shareResult">
+    <mat-spinner *ngIf="isSharing" diameter="20" class="button-spinner"></mat-spinner>
+    <span *ngIf="!isSharing">Create Share Link</span>
+  </button>
+</mat-dialog-actions>
