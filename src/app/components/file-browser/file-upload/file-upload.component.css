@@ -1,0 +1,70 @@
+.upload-container {
+  min-height: 250px;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  transition: all 0.3s;
+}
+
+.upload-container.has-file {
+  border-color: #4caf50;
+  background-color: #f1f8f4;
+}
+
+.drop-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  text-align: center;
+}
+
+.upload-icon {
+  font-size: 64px;
+  width: 64px;
+  height: 64px;
+  color: #999;
+  margin-bottom: 16px;
+}
+
+.file-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: white;
+  border-radius: 8px;
+}
+
+.file-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  color: #42A5F5;
+}
+
+.file-details {
+  flex: 1;
+}
+
+.file-details h4 {
+  margin: 0 0 4px 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.file-details p {
+  margin: 0;
+  font-size: 12px;
+  color: #666;
+}
+
+.button-spinner {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+mat-progress-bar {
+  margin-top: 16px;
+}

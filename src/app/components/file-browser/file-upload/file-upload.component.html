@@ -1,1 +1,43 @@
-<p>file-upload works!</p>
+<h2 mat-dialog-title>
+  <mat-icon>cloud_upload</mat-icon>
+  Upload File
+</h2>
+
+<mat-dialog-content>
+  <div class="upload-container" 
+       (dragover)="onDragOver($event)" 
+       (drop)="onDrop($event)"
+       [class.has-file]="selectedFile">
+    
+    <div *ngIf="!selectedFile" class="drop-zone">
+      <mat-icon class="upload-icon">cloud_upload</mat-icon>
+      <p>Drag & drop a file here or</p>
+      <button mat-raised-button color="primary" (click)="fileInput.click()">
+        Choose File
+      </button>
+      <input #fileInput type="file" hidden (change)="onFileSelected($event)">
+    </div>
+
+    <div *ngIf="selectedFile" class="file-info">
+      <mat-icon class="file-icon">insert_drive_file</mat-icon>
+      <div class="file-details">
+        <h4>{{ selectedFile.name }}</h4>
+        <p>{{ formatFileSize(selectedFile.size) }}</p>
+      </div>
+      <button mat-icon-button (click)="selectedFile = null" *ngIf="!isUploading">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <mat-progress-bar *ngIf="isUploading" mode="indeterminate"></mat-progress-bar>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()" [disabled]="isUploading">Cancel</button>
+  <button mat-raised-button color="primary" (click)="upload()" 
+          [disabled]="!selectedFile || isUploading">
+    <mat-spinner *ngIf="isUploading" diameter="20" class="button-spinner"></mat-spinner>
+    <span *ngIf="!isUploading">Upload</span>
+  </button>
+</mat-dialog-actions>

@@ -1,1 +1,32 @@
-<p>folder-create works!</p>
+<h2 mat-dialog-title>
+  <mat-icon>create_new_folder</mat-icon>
+  Create New Folder
+</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="folderForm">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Folder Name</mat-label>
+      <input matInput formControlName="name" placeholder="My Folder" [disabled]="isCreating">
+      <mat-icon matPrefix>folder</mat-icon>
+      <mat-error *ngIf="name?.hasError('required')">
+        Folder name is required
+      </mat-error>
+      <mat-error *ngIf="name?.hasError('maxlength')">
+        Folder name is too long (max 255 characters)
+      </mat-error>
+      <mat-error *ngIf="name?.hasError('pattern')">
+        Only letters, numbers, spaces, dots, hyphens, and underscores allowed
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()" [disabled]="isCreating">Cancel</button>
+  <button mat-raised-button color="primary" (click)="create()" 
+          [disabled]="folderForm.invalid || isCreating">
+    <mat-spinner *ngIf="isCreating" diameter="20" class="button-spinner"></mat-spinner>
+    <span *ngIf="!isCreating">Create</span>
+  </button>
+</mat-dialog-actions>
