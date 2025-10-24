@@ -1,0 +1,161 @@
+.dashboard-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.breadcrumb-bar {
+  margin-bottom: 20px;
+  background: white;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.breadcrumb-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.breadcrumb-list mat-chip {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.breadcrumb-list mat-chip.active {
+  background-color: #3f51b5;
+  color: white;
+}
+
+.action-bar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.action-bar button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.content-container {
+  margin-top: 20px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+}
+
+.empty-icon {
+  font-size: 80px;
+  width: 80px;
+  height: 80px;
+  color: #ccc;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+}
+
+.folders-section,
+.files-section {
+  margin-bottom: 32px;
+}
+
+.items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.item-card {
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.item-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.item-card mat-card-content {
+  padding: 16px;
+}
+
+.item-icon {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.folder-icon {
+  font-size: 64px;
+  width: 64px;
+  height: 64px;
+  color: #FFA726;
+}
+
+.file-icon {
+  font-size: 64px;
+  width: 64px;
+  height: 64px;
+  color: #42A5F5;
+}
+
+.item-info {
+  text-align: center;
+}
+
+.item-name {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 0 4px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.item-meta {
+  font-size: 12px;
+  color: #666;
+  margin: 0;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 8px;
+}
+
+.delete-action {
+  color: #f44336;
+}
+
+@media (max-width: 768px) {
+  .items-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+  
+  .dashboard-container {
+    padding: 12px;
+  }
+}

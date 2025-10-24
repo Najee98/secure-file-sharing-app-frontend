@@ -1,1 +1,29 @@
 <p>navbar works!</p>
+<mat-toolbar color="primary" class="navbar">
+  <button mat-icon-button (click)="goToDashboard()">
+    <mat-icon>folder</mat-icon>
+  </button>
+  
+  <span class="app-title">File Sharing Portal</span>
+  
+  <span class="spacer"></span>
+  
+  <button mat-button (click)="goToDashboard()">
+    <mat-icon>home</mat-icon>
+    My Files
+  </button>
+  
+  <button mat-button (click)="goToMyShares()">
+    <mat-icon>share</mat-icon>
+    Shared Links
+  </button>
+  
+  <span class="user-info">
+    <mat-icon>phone</mat-icon>
+    {{ phoneNumber }}
+  </span>
+  
+  <button mat-icon-button (click)="logout()" matTooltip="Logout">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>
